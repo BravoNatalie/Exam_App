@@ -1,0 +1,101 @@
+{
+  "exams": [
+    {
+      "id": 1,
+      "title": "Prova 1",
+      "subjects": ["CSS3", "HTML"],
+      "description": "Avaliar a habilidade em CSS3 e HTML",
+      "publishedAt": "2020-01-12 16:35:40"
+    },
+    {
+      "id": 2,
+      "title": "Prova 2",
+      "subjects": ["JavaScript"],
+      "description": "Avaliar a habilidade em Javascript",
+      "publishedAt": "2021-03-22 10:35:40"
+    },
+    {
+      "id": 3,
+      "title": "Prova 3",
+      "subjects": ["React", "React Native"],
+      "description": "Avaliar a habilidade em ReactJS e React Native",
+      "publishedAt": "2021-04-22 12:30:00"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "examId": 1,
+      "description": "Questão 1",
+      "orderNumber": 1
+    },
+    {
+      "id": 2,
+      "examId": 2,
+      "description": "Questão 1",
+      "orderNumber": 1
+    },
+    {
+      "id": 3,
+      "examId": 3,
+      "description": "Questão 1",
+      "orderNumber": 1
+    }
+  ],
+  "alternatives": [
+    {
+      "id": 1,
+      "questionId": 1,
+      "description": "Resposta A",
+      "isCorrect": false
+    },
+    {
+      "id": 2,
+      "questionId": 1,
+      "description": "Resposta B",
+      "isCorrect": true
+    },
+    {
+      "id": 3,
+      "questionId": 1,
+      "description": "Resposta C",
+      "isCorrect": false
+    },
+    {
+      "id": 4,
+      "questionId": 2,
+      "description": "Resposta A",
+      "isCorrect": false
+    },
+    {
+      "id": 5,
+      "questionId": 2,
+      "description": "Resposta B",
+      "isCorrect": false
+    },
+    {
+      "id": 6,
+      "questionId": 2,
+      "description": "Resposta C",
+      "isCorrect": true
+    },
+    {
+      "id": 7,
+      "questionId": 3,
+      "description": "Resposta A",
+      "isCorrect": true
+    },
+    {
+      "id": 8,
+      "questionId": 3,
+      "description": "Resposta B",
+      "isCorrect": false
+    },
+    {
+      "id": 9,
+      "questionId": 3,
+      "description": "Resposta C",
+      "isCorrect": false
+    }
+  ]
+}
