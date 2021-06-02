@@ -5,15 +5,16 @@ import { QuestionContainer } from './QuestionContainer';
 
 type QuestionProps = {
   label: string;
+  description: string;
 }
 
-export function Question({ label }: QuestionProps ) {
+export function Question({ label, description}: QuestionProps ) {
   return (
     <QuestionContainer>
       <TextArea 
         name="Description"
         label={label}
-        value=""
+        value={description}
         onChange={() => { }}
       />
       <Answer 

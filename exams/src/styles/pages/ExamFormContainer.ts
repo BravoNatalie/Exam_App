@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { QuestionContainer } from '../../components/Question/QuestionContainer';
 import { InputContainer } from '../../components/Input/InputContainer';
 
 export const ExamFormContainer = styled.div`
@@ -91,7 +92,28 @@ export const ExamFormContainer = styled.div`
           box-shadow: 0 5px 15px rgba(118, 199, 172, .9);
         }
       }
+    }
+  }
 
+  @media screen and (max-width: 650px) {
+    max-width: 100vw;
+
+    main {
+      fieldset {
+        padding: 0 2rem;
+      }
+
+      footer {
+        padding: 4.0rem 6.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+          width: 20rem;
+          margin-top: 0;
+        }
+      }
     }
   }
 `;

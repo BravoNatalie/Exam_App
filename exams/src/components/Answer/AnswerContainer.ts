@@ -16,7 +16,7 @@ export const AnswerContainer = styled.div`
   ${InputContainer} {
     width: 100%;
     input {
-    margin-top: 0;
+      margin-top: 0;
     }
   }
 `;

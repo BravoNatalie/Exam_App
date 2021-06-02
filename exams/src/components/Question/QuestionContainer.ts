@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { TextAreaContainer } from '../TextArea/TextAreaContainer';
 
 export const QuestionContainer = styled.div`
+
+  & ~ & {
+    border-top: 1px solid #E6E6F0;
+    padding-top: 1.2rem;
+    margin-top: 6.6rem;
+  }
+  
   ${TextAreaContainer} {
     label { 
       font-weight: 600;

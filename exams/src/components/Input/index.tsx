@@ -14,7 +14,7 @@ export function Input ({ label, name, Icon, ...rest }: InputProps) {
   return (
     <InputContainer>
       <label htmlFor={name}>{label}</label>
-      { Icon ?
+      {/* { Icon ?
         ( 
           <div className="inputWithIcon">
             <input type="text" id={name} {...rest} />
@@ -23,7 +23,8 @@ export function Input ({ label, name, Icon, ...rest }: InputProps) {
         )
         :
         ( <input type="text" id={name} {...rest} /> )
-      }      
+      } */}
+      <input type="text" id={name} {...rest} />
     </InputContainer>
   );
 }

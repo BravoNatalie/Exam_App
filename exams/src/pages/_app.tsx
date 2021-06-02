@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import { ExamContextProvider } from '../contexts/ExamContext';
 
 import { Header } from  '../components/Header';
 
@@ -8,9 +9,11 @@ import light from '../styles/themes/light';
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={light}>
-      <Header />
-      <Component {...pageProps} />
-      <GlobalStyle />
+      <ExamContextProvider>
+        <Header />
+        <Component {...pageProps} />
+        <GlobalStyle />
+      </ExamContextProvider>
     </ThemeProvider>
   );
 }
