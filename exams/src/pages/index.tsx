@@ -44,91 +44,92 @@ type HomeProps = {
 export default function Home({ allExams }: HomeProps) {
 
   const { remove, setExams, examList, lastQuestionId } = useExam();
+  setExams(allExams);
 
-  useEffect(() =>  {
+  // useEffect(() =>  {
 
-    async function getExams() {
-      try{
-        const exams = await api.get('exams', { 
-          params: {
-            _limit: 12,
-            _order: 'publishedAt',
-            _sort: 'desc'
-          }
-        });
+  //   async function getExams() {
+  //     try{
+  //       const exams = await api.get('exams', { 
+  //         params: {
+  //           _limit: 12,
+  //           _order: 'publishedAt',
+  //           _sort: 'desc'
+  //         }
+  //       });
       
-        const getQuestions = async (exam) =>{
-          try{
-            const {data} = await api.get('questions', { 
-              params: {
-                examId: exam.id,
-                _order: exam.orderNumber
-              }
-            });
-            return data;
-          } catch(err){
-            throw 'Error on getting questions'
-          }
-        }
+  //       const getQuestions = async (exam) =>{
+  //         try{
+  //           const {data} = await api.get('questions', { 
+  //             params: {
+  //               examId: exam.id,
+  //               _order: exam.orderNumber
+  //             }
+  //           });
+  //           return data;
+  //         } catch(err){
+  //           throw 'Error on getting questions'
+  //         }
+  //       }
         
-          const getAlternatives = async (question) => {
-            try {
-              const {data} = await api.get('alternatives', {
-                params: {
-                  questionId: question.id
-                }
-              });
-              return data;
-            } catch (err) {
-              throw 'Error on getting answers'
-            }
-          }
+  //         const getAlternatives = async (question) => {
+  //           try {
+  //             const {data} = await api.get('alternatives', {
+  //               params: {
+  //                 questionId: question.id
+  //               }
+  //             });
+  //             return data;
+  //           } catch (err) {
+  //             throw 'Error on getting answers'
+  //           }
+  //         }
         
-          const allExams =  [];
-          for (const exam of exams.data) {
-            let allQuestions = [];
-            let allAlternatives = [];
+  //         const allExams =  [];
+  //         for (const exam of exams.data) {
+  //           let allQuestions = [];
+  //           let allAlternatives = [];
         
-            const questions = await getQuestions(exam);
+  //           const questions = await getQuestions(exam);
         
-            for (const question of questions) {
-              const alternatives = await getAlternatives(question);
+  //           for (const question of questions) {
+  //             const alternatives = await getAlternatives(question);
         
-              allAlternatives = alternatives.map(alternative =>{ 
-                return {
-                  id: alternative.id,
-                  questionId: alternative.questionId,
-                  description: alternative.description,
-                  isCorrect: alternative.isCorrect
-                }
-              });
+  //             allAlternatives = alternatives.map(alternative =>{ 
+  //               return {
+  //                 id: alternative.id,
+  //                 questionId: alternative.questionId,
+  //                 description: alternative.description,
+  //                 isCorrect: alternative.isCorrect
+  //               }
+  //             });
         
-              allQuestions.push({
-                id: question.id,
-                examId: question.examId,
-                description: question.description,
-                orderNumber: question.orderNumber,
-                alternatives: allAlternatives
-              });
+  //             allQuestions.push({
+  //               id: question.id,
+  //               examId: question.examId,
+  //               description: question.description,
+  //               orderNumber: question.orderNumber,
+  //               alternatives: allAlternatives
+  //             });
               
-            }
+  //           }
             
-            allExams.push({
-              id: exam.id,
-              title: exam.title,
-              subjects: exam.subjects,
-              description: exam.description,
-              publishedAt: exam.publishedAt,
-              questions: allQuestions
-            });
-          }
-          setExams(allExams);
-      } catch (err) {
-        alert("Error: " + err);
-      }
-    }
-    getExams();
-  }, [examList]);
+  //           allExams.push({
+  //             id: exam.id,
+  //             title: exam.title,
+  //             subjects: exam.subjects,
+  //             description: exam.description,
+  //             publishedAt: exam.publishedAt,
+  //             questions: allQuestions
+  //           });
+  //         }
+  //         setExams(allExams);
+  //     } catch (err) {
+  //       alert("Error: " + err);
+  //     }
+  //   }
+  //   getExams();
+  // }, [examList]);
   
   // useEffect(() => {}, []);
 
@@ -180,9 +181,11 @@ export default function Home({ allExams }: HomeProps) {
                       <td>{exam.publishedAt}</td>
                       <td>
                         <div className="buttonContainer">
-                          <button name="Edit" type="button" onClick={e => alert("Sorry, it's not ready!")}>
-                            <MdEdit className="buttonIcon"/>
-                          </button>
+                          <Link href={`/examForm?id=${exam.id}`}>
+                            <button name="Edit" type="button">
+                              <MdEdit className="buttonIcon"/>
+                            </button>
+                          </Link>
                           <button name="Delete" type="button" onClick={e => remove(exam.id)}>
                             <MdDelete className="buttonIcon"/>
                           </button>
@@ -200,73 +203,73 @@ export default function Home({ allExams }: HomeProps) {
 }
 
 
-// export const  getServerSideProps: GetServerSideProps = async () => {
+export const  getServerSideProps: GetServerSideProps = async () => {
 
-//   const exams = await api.get('exams', { 
-//     params: {
-//       _limit: 12,
-//       _order: 'publishedAt',
-//       _sort: 'desc'
-//     }
-//   });
+  const exams = await api.get('exams', { 
+    params: {
+      _limit: 12,
+      _order: 'publishedAt',
+      _sort: 'desc'
+    }
+  });
 
-//   const getQuestions = async (exam) =>{
-//     const {data} = await api.get('questions', { 
-//       params: {
-//         examId: exam.id,
-//         _order: exam.orderNumber
-//       }
-//     });
-//     return data;
-//   }
+  const getQuestions = async (exam) =>{
+    const {data} = await api.get('questions', { 
+      params: {
+        examId: exam.id,
+        _order: exam.orderNumber
+      }
+    });
+    return data;
+  }
 
-//   const getAlternatives = async (question) => {
-//     const {data} = await api.get('alternatives', {
-//       params: {
-//         questionId: question.id
-//       }
-//     });
-//     return data;
-//   }
+  const getAlternatives = async (question) => {
+    const {data} = await api.get('alternatives', {
+      params: {
+        questionId: question.id
+      }
+    });
+    return data;
+  }
 
-//   const allExams =  [];
-//   for (const exam of exams.data) {
-//     let allQuestions = [];
-//     let allAlternatives = [];
+  const allExams =  [];
+  for (const exam of exams.data) {
+    let allQuestions = [];
+    let allAlternatives = [];
 
-//     const questions = await getQuestions(exam);
+    const questions = await getQuestions(exam);
 
-//     for (const question of questions) {
-//       const alternatives = await getAlternatives(question);
+    for (const question of questions) {
+      const alternatives = await getAlternatives(question);
 
-//       allAlternatives = alternatives.map(alternative =>{ 
-//         return {
-//           id: alternative.id,
-//           questionId: alternative.questionId,
-//           description: alternative.description,
-//           isCorrect: alternative.isCorrect
-//         }
-//       });
+      allAlternatives = alternatives.map(alternative =>{ 
+        return {
+          id: alternative.id,
+          questionId: alternative.questionId,
+          description: alternative.description,
+          isCorrect: alternative.isCorrect
+        }
+      });
 
-//       allQuestions.push({
-//         id: question.id,
-//         examId: question.examId,
-//         description: question.description,
-//         orderNumber: question.orderNumber,
-//         alternatives: allAlternatives
-//       });
+      allQuestions.push({
+        id: question.id,
+        examId: question.examId,
+        description: question.description,
+        orderNumber: question.orderNumber,
+        alternatives: allAlternatives
+      });
       
-//     }
+    }
     
-//     allExams.push({
-//       id: exam.id,
-//       title: exam.title,
-//       subjects: exam.subjects,
-//       description: exam.description,
-//       publishedAt: exam.publishedAt,
-//       questions: allQuestions
-//     });
-//     }
+    allExams.push({
+      id: exam.id,
+      title: exam.title,
+      subjects: exam.subjects,
+      description: exam.description,
+      publishedAt: exam.publishedAt,
+      questions: allQuestions
+    });
+    }
 
-//   return { props: { allExams } }
-// }
+  return { props: { allExams } }
+}

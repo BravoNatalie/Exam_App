@@ -35,6 +35,7 @@ type ExamContextData = {
   setLastExamId: (id: number) => void;
   setLastQuestionId: (id: number) => void;
   setLastAlternativeId: (id: number) => void;
+  getExam: (examId: string) => Exam;
   getQuestions: (examId: string) => Array<Question>;
   getAlternatives: (questionId: string) => Array<Alternative>;
   edit: (exam: Exam) => void;
@@ -66,6 +67,10 @@ export function ExamContextProvider({ children }: ExamContextProviderProps) {
       setLastQuestionId(Number(lastQuestionID));
       setLastAlternativeId(Number(lastAlternativeID));
     }
+  }
+
+  function getExam(examId: string){
+    return examList.find( exam => exam.id === examId);
   }
 
   function getQuestions(examId: string) {
@@ -141,6 +146,7 @@ export function ExamContextProvider({ children }: ExamContextProviderProps) {
         setLastQuestionId,
         lastAlternativeId,
         setLastAlternativeId,
+        getExam,
         getQuestions,
         getAlternatives,
         create,

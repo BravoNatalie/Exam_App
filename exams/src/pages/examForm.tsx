@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useState, FormEvent } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
@@ -14,13 +15,28 @@ import { QuestionContainer } from '../components/Question/QuestionContainer';
 
 import { useExam } from '../contexts/ExamContext';
 
-export default function ExamForm() {
+type ExamFormProps = {
+  id: string;
+}
+
+export default function ExamForm({ id }: ExamFormProps) {
   const { 
-    create, 
+    create,
+    getExam,
     lastExamId,
     lastQuestionId,
     lastAlternativeId,
   } = useExam();
+
+  const editExam = getExam(id);
+    console.log(editExam)
+  if(id){
+    //const editExam = getExam(id);
+    console.log("passou")
+
+  } else {
+
+  }
 
   const newLastExamId = lastExamId + 1;
   const [newLastQuestionId, setNewLastQuestionId] = useState(lastQuestionId + 1);
@@ -207,4 +223,14 @@ export default function ExamForm() {
 
     </ExamFormContainer>
   );
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { id } = query;
+  return {
+    props: {
+      id
+    }
+  }
 }
